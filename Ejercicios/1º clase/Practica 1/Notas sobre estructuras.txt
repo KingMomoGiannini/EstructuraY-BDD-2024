@@ -1,0 +1,36 @@
+Una estructura "struct" se trata de la creación de un nuevo tipo de dato, que a su vez tiene atributos, estos
+atributos son otros datos que ya conocemos (int, char,boolean etc...) almacenados en variables
+cuyos nombres serán los nombres de los atributos. 
+Asi podríamos crear por ejemplo la estructura Persona
+
+typedef struct {
+	int edad;
+	char[30] nombre;
+	char[30] apellido;
+}Persona;
+
+Cuyos atributos son: edad, nombre y apellido.
+
+Si queremos realizar una lista de 5 personas en el metodo main,
+debemos hacerlo de la siguiente manera:
+
+Persona personas[5];
+
+Si queremos ingresar los atributos correspondientes a cada persona a travez de un metodo lo haremos de la 
+siguiente manera:
+
+void cargarDatosDePersonas(Persona personas[],int cantidadPersonas)
+{
+	for(int i = 0; i < cantidadPersonas; i++){
+		printf("nombre de persona %d: ", i+1);
+		scanf("%s", persona[i].nombre);
+		printf("apellido de persona %d: ", i+1);
+		scanf("%s", persona[i].apellido);
+		printf("nombre de persona %d: ", i+1);
+		scanf("%d", &persona[i].edad);
+	}
+}
+
+Para que se carguen los datos en la lista del metodo 
+main, deberá si o si, ser pasada como parametro en la
+funcion o metodo void que armamos para cargar los datos.
