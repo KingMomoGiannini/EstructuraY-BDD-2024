@@ -19,6 +19,8 @@ int cantidadElementos();
 void cargar(Alumno alumnos[],int cantidad);
 void mostrar(Alumno alumnos[], int cantidad);
 void ordenarPorPromedio(Alumno alumnos[], int cantidad, int promedios[]);
+void mostrarAlumnosAprobados(Alumno alumnos[], int cantidad);
+void mostrarAlumnosPorInicial(Alumno alumnos[], int cantidad, char inicial);
 
 int main(){
     
@@ -28,6 +30,14 @@ int main(){
     mostrar(alumnos, laCantidad);
     system("pause");
     system("cls");
+    mostrarAlumnosAprobados(alumnos, laCantidad);
+    system("pause");
+    system("cls");
+    char inicial;
+    printf("Ingrese la inicial del nombre de los alumnos a mostrar: ");
+    scanf("%c", &inicial);
+    mostrarAlumnosPorInicial(alumnos, laCantidad, inicial);
+    
     return 0;
 }
 //funcion que pida al usuario cantidad de elementos a almacenar en la lista
@@ -43,8 +53,13 @@ void cargar(Alumno alumnos[], int cantidad) {
 
     // Solicitar al usuario que ingrese los datos de cada alumno
     for (int i = 0; i < cantidad; i++) {
+
         printf("Ingrese el nombre del alumno %d: ", i + 1);
         scanf("%s", alumnos[i].nombre);
+        printf("\nIngrese el apellido del alumno %s: ", alumnos[i].apellido);
+        scanf("%s", alumnos[i].apellido);
+        printf("\nIngrese el legajo del alumno %s: ", alumnos[i].nombre);
+        scanf("%d", &alumnos[i].legajo);
     //ciclo que me permita cargar hasta 5 notas de alumnos
         for (int j = 0; j < 5; j++) {
             printf("Ingrese la nota %d del alumno %s: ", j + 1, alumnos[i].nombre);
@@ -90,5 +105,40 @@ void ordenarPorPromedio(Alumno alumnos[], int cantidad, int promedios[]) {
     }
 }
 
+
+void mostrarAlumnosAprobados(Alumno alumnos[], int cantidad) {
+    for (int i = 0; i < cantidad; i++) {
+        int sumaNotas=0;
+        for (int j = 0; j < 5; j++) {
+            if (j==0 || j==2)
+            {
+                sumaNotas+=alumnos[i].nota[j];
+            }
+        }
+        float promedio=sumaNotas/2;
+        if (promedio>=6)
+        {
+            printf("Nombre: %s\n", alumnos[i].nombre);
+            printf("Apellido: %s\n", alumnos[i].apellido);
+            printf("Legajo: %s\n", alumnos[i].legajo);
+            printf("Promedio: %.2f\n", promedio);
+        }
+    }
+}
+
+//funcion que muestre los alumnos cuyo nombre comience con una letra ingresada por el usuario
+void mostrarAlumnosPorInicial(Alumno alumnos[], int cantidad, char inicial) {
+    for (int i = 0; i < cantidad; i++) {
+        if (alumnos[i].nombre[0] == inicial) {
+            printf("Nombre: %s\n", alumnos[i].nombre);
+            printf("Apellido: %s\n", alumnos[i].apellido);
+            printf("Legajo: %s\n", alumnos[i].legajo);
+            printf("Notas: ");
+            for (int j = 0; j < 5; j++) {
+                printf("\n%.2f ", alumnos[i].nota[j]);
+            }
+        }
+    }
+}
 
 
