@@ -25,6 +25,7 @@ void mostrarAlumnosPorInicial(Alumno alumnos[], int cantidad, char inicial);
 int main(){
     
     int laCantidad = cantidadElementos();
+    char inicial;
     Alumno alumnos[laCantidad];
     cargar(alumnos,laCantidad);
     mostrar(alumnos, laCantidad);
@@ -33,11 +34,11 @@ int main(){
     mostrarAlumnosAprobados(alumnos, laCantidad);
     system("pause");
     system("cls");
-    char inicial;
     printf("Ingrese la inicial del nombre de los alumnos a mostrar: ");
+    fflush(stdin);
     scanf("%c", &inicial);
     mostrarAlumnosPorInicial(alumnos, laCantidad, inicial);
-    
+
     return 0;
 }
 //funcion que pida al usuario cantidad de elementos a almacenar en la lista
@@ -56,7 +57,7 @@ void cargar(Alumno alumnos[], int cantidad) {
 
         printf("Ingrese el nombre del alumno %d: ", i + 1);
         scanf("%s", alumnos[i].nombre);
-        printf("\nIngrese el apellido del alumno %s: ", alumnos[i].apellido);
+        printf("\nIngrese el apellido del alumno %s: ", alumnos[i].nombre);
         scanf("%s", alumnos[i].apellido);
         printf("\nIngrese el legajo del alumno %s: ", alumnos[i].nombre);
         scanf("%d", &alumnos[i].legajo);
@@ -120,7 +121,7 @@ void mostrarAlumnosAprobados(Alumno alumnos[], int cantidad) {
         {
             printf("Nombre: %s\n", alumnos[i].nombre);
             printf("Apellido: %s\n", alumnos[i].apellido);
-            printf("Legajo: %s\n", alumnos[i].legajo);
+            printf("Legajo: %d\n", alumnos[i].legajo);
             printf("Promedio: %.2f\n", promedio);
         }
     }
@@ -132,7 +133,7 @@ void mostrarAlumnosPorInicial(Alumno alumnos[], int cantidad, char inicial) {
         if (alumnos[i].nombre[0] == inicial) {
             printf("Nombre: %s\n", alumnos[i].nombre);
             printf("Apellido: %s\n", alumnos[i].apellido);
-            printf("Legajo: %s\n", alumnos[i].legajo);
+            printf("Legajo: %d\n", alumnos[i].legajo);
             printf("Notas: ");
             for (int j = 0; j < 5; j++) {
                 printf("\n%.2f ", alumnos[i].nota[j]);
