@@ -20,6 +20,7 @@ typedef struct{
 void cargarEmpleados(Empleado *empleados, int *cantEmpleados);
 void ordenarEmpleados(Empleado *empleados, int cantEmpleados);
 void mostrarEmpleados(Empleado *empleados, int cantEmpleados);
+void ordenarEmpleadosPorSector(Empleado *empleados, int cantEmpleados);
 
 int main(){
     Empleado empleados[100];
@@ -33,9 +34,9 @@ int main(){
 void cargarEmpleados(Empleado *empleados, int *cantEmpleados){
     int dni;
     int i;
-    int j;
     int existe;
     do{
+        existe=0;
         printf("Ingrese el DNI del empleado: ");
         scanf("%d", &dni);
         if(dni != -1){
@@ -76,30 +77,40 @@ void ordenarEmpleados(Empleado *empleados, int cantEmpleados){
     }
 }
 
+void ordenarEmpleadosPorSector(Empleado *empleados, int cantEmpleados){
+    int i;
+    int j;
+    Empleado aux;
+    for(i = 0; i < cantEmpleados - 1; i++){
+        for(j = 0; j < cantEmpleados - i - 1; j++){
+            if(strcmp(empleados[j].sector, empleados[j + 1].sector) > 0){
+                aux = empleados[j];
+                empleados[j] = empleados[j + 1];
+                empleados[j + 1] = aux;
+            }
+        }
+    }
+}
+
 void mostrarEmpleados(Empleado *empleados, int cantEmpleados){
     int i;
+    char elSector[50]="";
+    //ordenar empleados por sector
+    ordenarEmpleadosPorSector(empleados, cantEmpleados);
     for(i = 0; i < cantEmpleados; i++){
-        if (strcmp(empleados[i].sector,"a"))
-        {
-            printf("-----------Sector A-----------\n", empleados[i].sector);
+        if (strcmp(elSector, empleados[i].sector)==0){
+            printf("-------------------------------------------------\n");
             printf("DNI: %d\n", empleados[i].dni);
             printf("Nombre: %s\n", empleados[i].nombre);
             printf("Apellido: %s\n", empleados[i].apellido);
+            printf("-------------------------------------------------\n");
         }
-        else if (strcmp(empleados[i].sector,"b"))
-        {
-            printf("-----------Sector B-----------\n", empleados[i].sector);
+        else{
+            strcpy(elSector, empleados[i].sector);
+            printf("\n-----------Sector %s-----------\n", elSector);  
             printf("DNI: %d\n", empleados[i].dni);
             printf("Nombre: %s\n", empleados[i].nombre);
-            printf("Apellido: %s\n", empleados[i].apellido);
+            printf("Apellido: %s\n", empleados[i].apellido);      
         }
-        else if (strcmp(empleados[i].sector,"c"))
-        {
-            printf("-----------Sector C-----------\n", empleados[i].sector);
-            printf("DNI: %d\n", empleados[i].dni);
-            printf("Nombre: %s\n", empleados[i].nombre);
-            printf("Apellido: %s\n", empleados[i].apellido);
-        }
-        
     }
 }
