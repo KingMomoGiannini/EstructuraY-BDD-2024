@@ -4,12 +4,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct persona{
+typedef struct{
     char nombre[20];
     char apellido[20];
     int edad;
     char sexo;
-    } datos;
+} datos;
 
 int main(){
     int i = 0;
