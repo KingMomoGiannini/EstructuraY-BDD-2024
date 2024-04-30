@@ -2,7 +2,9 @@
 #include<string.h>
 #include<stdlib.h>
 
-/* Realizar un programa que permita realizar lo siguiente  
+/* 
+Ejercicio 3 - Practica 1
+Realizar un programa que permita realizar lo siguiente  
 a) Una función que permita cargar los empleados de una empresa hasta que decida 
 terminar el ingreso de datos con DNI igual a -1. Deberá validarse si el empleado si 
 ya fue ingresado o no 
