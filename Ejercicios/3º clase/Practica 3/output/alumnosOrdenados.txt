@@ -1,0 +1,27 @@
+Nombre: roberto
+Apellido: arlt
+Legajo: 9595
+Nota 1: 2.00
+Nota 2: 3.00
+Nota 3: 4.00
+Nota 4: 5.00
+Nota 5: 6.00
+
+Nombre: sarah
+Apellido: badia
+Legajo: 2525
+Nota 1: 10.00
+Nota 2: 9.00
+Nota 3: 10.00
+Nota 4: 9.00
+Nota 5: 10.00
+
+Nombre: sebastian
+Apellido: giannini
+Legajo: 1525
+Nota 1: 6.00
+Nota 2: 7.00
+Nota 3: 8.00
+Nota 4: 9.00
+Nota 5: 10.00
+
