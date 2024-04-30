@@ -1,0 +1,4 @@
+Sector: ventas Cantidad de empleados: 1
+Sector: administracion Cantidad de empleados: 1
+Sector: produccion Cantidad de empleados: 1
+Sector:  Cantidad de empleados: 1
