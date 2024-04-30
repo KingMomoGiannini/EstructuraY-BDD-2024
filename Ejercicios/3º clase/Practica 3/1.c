@@ -54,13 +54,22 @@ void escribirTexto(FILE *elArchivo){
 void leerArchivo(FILE *elArchivo){
     char c;
     int palabras = 0;
+    int lineas = 0;
     //recorrer caracter a caracter y contar las palabras
     while(!feof(elArchivo)){
         c = fgetc(elArchivo);
-        if(c == ' ' || c == '\n'){//si el caracter es un espacio, fin de archivo o salto de linea
+        /*if(c == ' ' || c == '\n'){//si el caracter es un espacio, fin de archivo o salto de linea
             palabras++; //se incrementa la cantidad de palabras
+            En este bloque solo contaba las palabras en todo el archivo de texto, no en cada linea
+        }*/
+        if (c == '\n'){
+            palabras++;
+            printf("La cantidad de palabras en la linea %d es: %d\n", lineas+1, palabras);
+            palabras = 0;
+            lineas++;
+        }
+        else if (c == ' '){
+            palabras++;
         }
     }
-        printf("La cantidad de palabras en la linea es: %d\n", palabras);
-    
 }
