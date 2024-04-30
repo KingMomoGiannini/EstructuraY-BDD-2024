@@ -59,11 +59,11 @@ void leerArchivo(FILE *elArchivo){
     //recorrer caracter a caracter y contar las palabras
     while(!feof(elArchivo)){
         c = fgetc(elArchivo);
-        if (c != '\n' && c != ' '){ // Use && instead of || to check for both conditions
+        if (c != '\n' && c != ' '){ 
             cadena[i][j] = c;
             j++;
         }
-        else if (c == ' ' || c == '\n'){ // Use || instead of && to check for either condition
+        else if (c == ' ' || c == '\n'){ 
             cadena[i][j] = '\0';
             if (j > max){
                 max = j;
