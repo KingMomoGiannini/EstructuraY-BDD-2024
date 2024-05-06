@@ -2,7 +2,7 @@
 #include <string.h>
 
 int main(){
-    char cadena[] = "Hola mundo soy una cadena separa por comas",
+    char cadena[] = "Hola mundo soy una cadena separada por espacios",
     delimitador[] = " ";
 
 
