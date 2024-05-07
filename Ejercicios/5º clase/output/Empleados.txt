@@ -1,0 +1,24 @@
+Legajo: 1007
+Apellido: MUNOZ
+Oficio: EMPLEADO
+Salario: 194350.00
+Sector: VENTAS
+
+Legajo: 1008
+Apellido: ALONSO
+Oficio: EMPLEADO
+Salario: 164450.00
+Sector: VENTAS
+
+Legajo: 1009
+Apellido: JIMENO
+Oficio: EMPLEADO
+Salario: 142025.00
+Sector: INVESTIGACION
+
+Legajo: 1010
+Apellido: SANCHEZ
+Oficio: EMPLEADO
+Salario: 119600.00
+Sector: VENTAS
+

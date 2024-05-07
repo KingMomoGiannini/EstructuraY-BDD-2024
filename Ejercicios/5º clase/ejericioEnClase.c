@@ -23,9 +23,9 @@ typedef struct{
 void leerArchivo(FILE *elArchivo,Empleado empleados[], int *cantEmpleados);
 void generarArchivoBinario(Empleado empleados[], int *cantEmpleados);
 void leerArchivoBinario(FILE *elArchivoBinario);
-/*void generarArchivoEmpleados(FILE *elArchivo);
-void generarArchivoOficios(FILE *elArchivo);
-*/
+void generarArchivoEmpleados(Empleado empleados[], int *cantEmpleados);
+void generarArchivoOficios(Empleado empleados[], int *cantEmpleados);
+
 int main(){
     int opcion;
     Empleado empleados[100];
@@ -36,7 +36,7 @@ int main(){
     if (elArchivo != NULL){
         do
         {
-            printf("1. Leer archivo de texto\n2. Generar archivo binario con empleados del sector VENTAS\n3. Generar archivo de texto con empleados cuyo oficio sea EMPLEADO y un archivo de texto con los demas empleados\n4.Salir\n5. Leer archivo Binario\n");
+            printf("1. Leer archivo de texto\n2. Generar archivo binario con empleados del sector VENTAS\n3. Generar archivo de texto con empleados cuyo oficio sea EMPLEADO y un archivo de texto con los demas empleados\n4. Leer archivo Binario de sector VENTAS.\n5. Salir \n");
             scanf("%d", &opcion);
             switch (opcion)
             {
@@ -48,17 +48,13 @@ int main(){
                 case 2:
                     generarArchivoBinario(empleados, &cantEmpleados);
                     break;
-                /*case 3:
+                case 3:
+                    generarArchivoEmpleados(empleados, &cantEmpleados);
                     rewind(elArchivo);
-                    generarArchivoEmpleados(elArchivo);
-                    rewind(elArchivo);
-                    generarArchivoOficios(elArchivo);
+                    generarArchivoOficios(empleados, &cantEmpleados);
                     break;
-                    */
                 case 4:
-                    break;
-                case 5:
-                    rewind(elArchivoBinario);
+                    //rewind(elArchivoBinario);  <--- No es necesario, de hecho no permite la lectura del binario.
                     elArchivoBinario = fopen("empleadosVentas.dat", "rb");
                     if (elArchivoBinario != NULL)
                     {
@@ -71,10 +67,13 @@ int main(){
                         system("cls");
                     }
                     break;
+                    break;
+                case 5:
+                    break;
                 default:
                     printf("Opcion no valida\n");
             }
-        } while (opcion != 4); 
+        } while (opcion != 5); 
         
         fclose(elArchivo);
     }
@@ -135,11 +134,58 @@ void generarArchivoBinario(Empleado empleados[], int *cantEmpleados){
 
 void leerArchivoBinario(FILE *elArchivoBinario){
     Empleado empleado;
-    rewind(elArchivoBinario);
+    //rewind(elArchivoBinario);  <--- No es necesario, de hecho no permite la lectura del binario.
     while(!feof(elArchivoBinario)){
         fread(&empleado, sizeof(Empleado), 1, elArchivoBinario);
         printf("Legajo: %d\nApellido: %s\nOficio: %s\nSalario: %.2f\nSector: %s\n", empleado.legajo, empleado.apellido, empleado.oficio, empleado.salario, empleado.sector);
     }
     system("pause");
     system("cls");
+}
+
+/*void leerArchivoBinario(FILE *elArchivoBinario){
+    Empleado empleado;
+    //rewind(elArchivoBinario);  <--- No es necesario, de hecho no permite la lectura del binario.
+    fflush(stdin);
+    while(fread(&empleado, sizeof(Empleado), 1, elArchivoBinario)){
+        printf("Legajo: %d\nApellido: %s\nOficio: %s\nSalario: %.2f\nSector: %s\n", empleado.legajo, empleado.apellido, empleado.oficio, empleado.salario, empleado.sector);
+    }
+    system("pause");
+    system("cls");
+}*/
+
+void generarArchivoEmpleados(Empleado empleados[], int *cantEmpleados){
+    FILE *elArchivoEmpleados;
+    elArchivoEmpleados = fopen("Empleados.txt", "w");
+    if (elArchivoEmpleados != NULL){
+        for(int i = 0; i < *cantEmpleados; i++){
+            if(strcmp(empleados[i].oficio,"EMPLEADO") == 0){
+                fprintf(elArchivoEmpleados, "Legajo: %d\nApellido: %s\nOficio: %s\nSalario: %.2f\nSector: %s\n", empleados[i].legajo, empleados[i].apellido, empleados[i].oficio, empleados[i].salario, empleados[i].sector);
+            }
+        }
+        fclose(elArchivoEmpleados);
+    }
+    else{
+        printf("No se pudo abrir el archivo");
+        system("pause");
+        system("cls");
+    }
+}
+
+void generarArchivoOficios(Empleado empleados[], int *cantEmpleados){
+    FILE *elArchivoOficios;
+    elArchivoOficios = fopen("Oficios.txt", "w");
+    if (elArchivoOficios != NULL){
+        for(int i = 0; i < *cantEmpleados; i++){
+            if(strcmp(empleados[i].oficio,"EMPLEADO") != 0){
+                fprintf(elArchivoOficios, "Legajo: %d\nApellido: %s\nOficio: %s\nSalario: %.2f\nSector: %s\n", empleados[i].legajo, empleados[i].apellido, empleados[i].oficio, empleados[i].salario, empleados[i].sector);
+            }
+        }
+        fclose(elArchivoOficios);
+    }
+    else{
+        printf("No se pudo abrir el archivo");
+        system("pause");
+        system("cls");
+    }
 }

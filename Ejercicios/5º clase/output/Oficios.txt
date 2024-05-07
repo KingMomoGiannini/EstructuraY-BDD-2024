@@ -1,0 +1,54 @@
+Legajo: 1002
+Apellido: GIL
+Oficio: ANALISTA
+Salario: 448500.00
+Sector: SISTEMAS
+
+Legajo: 1003
+Apellido: FERNANDEZ
+Oficio: ANALISTA
+Salario: 448500.00
+Sector: INVESTIGACION
+
+Legajo: 1004
+Apellido: JIMENEZ
+Oficio: DIRECTOR
+Salario: 444762.50
+Sector: VENTAS
+
+Legajo: 1005
+Apellido: NEGRO
+Oficio: DIRECTOR
+Salario: 426075.00
+Sector: CONTABILIDAD
+
+Legajo: 1006
+Apellido: CEREZO
+Oficio: DIRECTOR
+Salario: 366275.00
+Sector: INVESTIGACION
+
+Legajo: 1011
+Apellido: REY
+Oficio: PRESIDENTE
+Salario: 747500.00
+Sector: ADMINISTRACION
+
+Legajo: 1012
+Apellido: MARTIN
+Oficio: VENDEDOR
+Salario: 344500.00
+Sector: INVESTIGACION
+
+Legajo: 1013
+Apellido: ARROYO
+Oficio: VENDEDOR
+Salario: 247000.00
+Sector: SISTEMAS
+
+Legajo: 1014
+Apellido: SALA
+Oficio: VENDEDOR
+Salario: 227500.00
+Sector: INVESTIGACION
+
