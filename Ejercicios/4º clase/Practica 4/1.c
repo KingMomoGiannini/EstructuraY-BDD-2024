@@ -19,14 +19,48 @@ typedef struct{
 }Pelicula;
 
 void cargarPeliculas(Pelicula *peliculas, int cantidad);
-void mostrarPeliculas(Pelicula *peliculas, int cantidad);
-void guardarPeliculas(Pelicula *peliculas, int cantidad);
+void mostrarPeliculas(FILE *archivoPeliculas, Pelicula *peliculas, int cantidad);
+void guardarPeliculas(FILE *archivoPeliculas, Pelicula *peliculas, int cantidad);
 
 int main(){
+    int opcion;
     Pelicula peliculas[5];
-    cargarPeliculas(peliculas, 5);
-    guardarPeliculas(peliculas, 5);
-    mostrarPeliculas(peliculas, 5);
+    FILE *archivoPeliculas;
+    while(opcion != 3){
+        printf("\t1- Cargar peliculas\n");
+        printf("\t2- Mostrar peliculas\n");
+        printf("\t3- Salir\n");
+        printf("\nIngrese una opcion: ");
+        scanf("%d", &opcion);
+        switch (opcion){
+        case 1:
+            archivoPeliculas = fopen("peliculas.dat", "wb");
+            if (archivoPeliculas != NULL){
+                cargarPeliculas(peliculas, 5);
+                guardarPeliculas(archivoPeliculas,peliculas, 5);
+                fclose(archivoPeliculas);
+            }
+            else{
+                printf("Error al abrir el archivo\n");
+            }
+            break;
+        case 2: 
+            archivoPeliculas = fopen("peliculas.dat", "rb");
+            if(archivoPeliculas != NULL){
+                mostrarPeliculas(archivoPeliculas, peliculas, 5);
+                fclose(archivoPeliculas);
+            }
+            else{
+                printf("Error al abrir el archivo para lectura\n");
+            }
+            break;
+        case 3:
+            break;
+        default:
+            printf("Opcion incorrecta\n");
+            break;
+        }
+    }
     return 0;
 }
 
@@ -45,32 +79,31 @@ void cargarPeliculas(Pelicula *peliculas, int cantidad){
     }
 }
 
-void mostrarPeliculas(Pelicula *peliculas, int cantidad){
-    FILE *archivo = fopen("peliculas.dat", "rb");
-    if(archivo == NULL){
+void mostrarPeliculas(FILE *archivoPeliculas, Pelicula *peliculas, int cantidad){
+    if(archivoPeliculas != NULL){
+        for(int i = 0; i < cantidad; i++){
+            fread(&peliculas[i], sizeof(Pelicula), 1, archivoPeliculas);
+            printf("Pelicula %d\n", i+1);
+            printf("Nombre: %s\n", peliculas[i].nombre);
+            printf("Genero: %s\n", peliculas[i].genero);
+            printf("Anio de estreno: %d\n", peliculas[i].anio);
+            printf("Calificacion: %.2f\n", peliculas[i].calificacion);
+            printf("------------------------\n");
+        }
+    }
+    else{
         printf("Error al abrir el archivo\n");
-        exit(1);
     }
-    for(int i = 0; i < cantidad; i++){
-        fread(&peliculas[i], sizeof(Pelicula), 1, archivo);
-        printf("Pelicula %d\n", i+1);
-        printf("Nombre: %s\n", peliculas[i].nombre);
-        printf("Genero: %s\n", peliculas[i].genero);
-        printf("Anio de estreno: %d\n", peliculas[i].anio);
-        printf("Calificacion: %.2f\n", peliculas[i].calificacion);
-    }
-    fclose(archivo);
 }
 
-void guardarPeliculas(Pelicula *peliculas, int cantidad){
-    FILE *archivo = fopen("peliculas.dat", "wb");
-    if(archivo == NULL){
+void guardarPeliculas(FILE *archivoPeliculas, Pelicula *peliculas, int cantidad){
+    if(archivoPeliculas != NULL){
+        for(int i = 0; i < cantidad; i++){
+            fwrite(&peliculas[i], sizeof(Pelicula), 1, archivoPeliculas);
+        }
+    }
+    else{
         printf("Error al abrir el archivo\n");
-        exit(1);
     }
-    for(int i = 0; i < cantidad; i++){
-        fwrite(&peliculas[i], sizeof(Pelicula), 1, archivo);
-    }
-    fclose(archivo);
 }
 
