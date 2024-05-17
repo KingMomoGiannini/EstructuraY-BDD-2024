@@ -24,32 +24,27 @@ typedef struct{
 int CANT_PELICULAS = 5;
 
 //prototipos
-void mostrarPeliculas(Pelicula *peliculas, int cantidad);
-void mostrarNPeliculasSiguientes(Pelicula *peliculas, int cantidad, int posicion, int n);
-int cantidadPeliculasEstrenadas(Pelicula *peliculas, int cantidad, int anio);
-float promedioCalificacionGenero(Pelicula *peliculas, int cantidad, char *genero);
-void pasarAMayusculas(Pelicula *peliculas, int cantidad);
-void generarTop3Pelis(Pelicula *peliculas, int cantidad);
-void generarPelisDeGenero(Pelicula *peliculas, int cantidad, char *genero);
-void leerArchivo(FILE *archivo);
+void mostrarPeliculas(FILE *archivoPeliculas, Pelicula *peliculas, int cantidad);
+//void mostrarNPeliculasSiguientes(Pelicula *peliculas, int posicion, int n);
+//int cantidadPeliculasEstrenadas(Pelicula *peliculas, int cantidad, int anio);
+//float promedioCalificacionGenero(Pelicula *peliculas, int cantidad, char *genero);
+//void pasarAMayusculas(Pelicula *peliculas, int cantidad);
+//void generarTop3Pelis(Pelicula *peliculas, int cantidad);
+//void generarPelisDeGenero(Pelicula *peliculas, int cantidad, char *genero);
+//void leerArchivo(FILE *archivo);
 
 int main(){
     FILE *archivo;
-    Pelicula peliculas[10];
-
+    Pelicula peliculas[5];
     archivo = fopen("peliculas.dat", "rb");
     if(archivo != NULL){
-        for (int i = 0; i < CANT_PELICULAS; i++)
-        {
-            fread(&peliculas[i], sizeof(Pelicula), 1, archivo);
-        }
-        mostrarPeliculas(peliculas, CANT_PELICULAS);
-        mostrarNPeliculasSiguientes(peliculas, CANT_PELICULAS, 2, 3);
-        printf("Cantidad de peliculas estrenadas en 2010 o posterior: %d\n", cantidadPeliculasEstrenadas(peliculas, CANT_PELICULAS, 2010));
-        printf("Promedio de calificacion de peliculas de genero comedia: %.2f\n", promedioCalificacionGenero(peliculas, CANT_PELICULAS, "comedia"));
-        pasarAMayusculas(peliculas, CANT_PELICULAS);
-        generarTop3Pelis(peliculas, CANT_PELICULAS);
-        generarPelisDeGenero(peliculas, CANT_PELICULAS, "comedia");
+        mostrarPeliculas(archivo, peliculas, CANT_PELICULAS);
+        //mostrarNPeliculasSiguientes(peliculas, CANT_PELICULAS, 2, 3);
+        //printf("Cantidad de peliculas estrenadas en 2010 o posterior: %d\n", cantidadPeliculasEstrenadas(peliculas, CANT_PELICULAS, 2010));
+        //printf("Promedio de calificacion de peliculas de genero comedia: %.2f\n", promedioCalificacionGenero(peliculas, CANT_PELICULAS, "comedia"));
+        //pasarAMayusculas(peliculas, CANT_PELICULAS);
+        //generarTop3Pelis(peliculas, CANT_PELICULAS);
+        //generarPelisDeGenero(peliculas, CANT_PELICULAS, "comedia");
         fclose(archivo);
     }
     else{
@@ -59,21 +54,28 @@ int main(){
     return 0;
 }
 
-void mostrarPeliculas(Pelicula *peliculas, int cantidad){
-    for(int i = cantidad - 3; i < cantidad; i++){
-        printf("Nombre: %s\n", peliculas[i].nombre);
-        printf("Anio: %d\n", peliculas[i].anio);
-        printf("Genero: %s\n", peliculas[i].genero);
-        printf("Calificacion: %.2f\n", peliculas[i].calificacion);
-        printf("\n");
+void mostrarPeliculas(FILE *archivoPeliculas, Pelicula *peliculas, int cantidad){
+    if(archivoPeliculas != NULL){
+        for(int i = cantidad -3 ; i < cantidad; i++){
+            fread(&peliculas[i], sizeof(Pelicula), 1, archivoPeliculas);
+            printf("Pelicula %d\n", i+1);
+            printf("Nombre: %s\n", peliculas[i].nombre);
+            printf("Genero: %s\n", peliculas[i].genero);
+            printf("Anio de estreno: %d\n", peliculas[i].anio);
+            printf("Calificacion: %.2f\n", peliculas[i].calificacion);
+            printf("------------------------\n");
+        }
+    }
+    else{
+        printf("Error al abrir el archivo\n");
     }
 }
 
-void mostrarNPeliculasSiguientes(Pelicula *peliculas, int cantidad, int posicion, int n){
+/*void mostrarNPeliculasSiguientes(Pelicula *peliculas, int posicion, int n){
     for(int i = posicion; i < posicion + n; i++){
         printf("Nombre: %s\n", peliculas[i].nombre);
-        printf("Anio: %d\n", peliculas[i].anio);
         printf("Genero: %s\n", peliculas[i].genero);
+        printf("Anio: %d\n", peliculas[i].anio);
         printf("Calificacion: %.2f\n", peliculas[i].calificacion);
         printf("\n");
     }
@@ -168,4 +170,4 @@ void generarPelisDeGenero(Pelicula *peliculas, int cantidad, char *genero){
     fwrite(pelisDeGenero, sizeof(Pelicula), cantidadPelisDeGenero, archivo);
 
     fclose(archivo);
-}
+}*/
