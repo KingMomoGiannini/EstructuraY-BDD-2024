@@ -1,0 +1,11 @@
+Modularizar
+una funcion que genere la asignacion de memoria dinamica usando malloc generarEspacioDinamico()
+una que muestre el vector mostrarVector(vec[],int, "un string")
+una para crear el vector int *crearVector(int *v, int n)
+
+/*Transformar un vector real en un vector dinamico con funciones. Utilizar realloc para expandir memoria
+int *crearVector(int *, int );
+void cargaVector(int[], int, int);
+void mostrarVector(int[], int, char *);
+int *realocarVector(int *, int);
+Luego generar un vector dinamico con los numeros primos que posea el vector dinamico antes creado. */
