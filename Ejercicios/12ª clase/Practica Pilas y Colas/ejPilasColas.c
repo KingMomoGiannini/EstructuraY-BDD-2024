@@ -1,3 +1,7 @@
+/*Este primer programa esta hecho utilizando 
+malas practicas (Declaracion de punteros Pila y Cola como 
+variables de uso global)*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -14,8 +18,8 @@ typedef struct producto {
     struct producto *ptr;
 } Producto;
 
-Cliente *cola = NULL;
-Producto *pila = NULL;
+Cliente *cola = NULL;//Malas practicas
+Producto *pila = NULL;//Malas practicas
 
 //Prototipos de funciones
 void ingresarCliente(Cliente *cliente);

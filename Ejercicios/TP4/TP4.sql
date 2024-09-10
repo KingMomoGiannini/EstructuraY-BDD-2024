@@ -1,0 +1,18 @@
+--Ejercicios SQL - Definición de Datos – (evaluación) 
+--Ejercicio 1: 
+--La siguiente base de datos está pensada para almacenar la información necesaria para gestionar la 
+--venta automática de entradas para diferentes espectáculos desde múltiples puntos de venta, 
+--como pueden ser oficinas bancarias, terminales o las mismas taquillas de teatros u otros recintos. 
+--PRECIOS_ESPECTACULOS (COD_PELICULA, COD_COMPLEJO, NRO_SALA, PRECIO) 
+--COMPLEJOS (NOMBRE, DIRECCION, CIUDAD, TELEFONO, HORARIO) 
+--SALAS (TIPO, CAPACIDAD) 
+--ASIENTOS (FILA, NUMERO) 
+--PELICULA ( NOMBRE,FECHA, HORA ,CALIFICACION) 
+--ENTRADAS ( FECHA , HORA, SALA, FILA, NUMERO, TIPO, NOMBRE) 
+--ESPECTADORES (NOMBRE, DIRECCION, TELEFONO, CIUDAD, NTARJETA) 
+--Se pide: 
+--1. Establecer las claves primarias de cada una de las tablas y las restricciones de integridad 
+--referencial existentes entre las mismas. 
+--2. Crear las sentencias SQL que nos permiten crear las tablas anteriores y sus restricciones. 
+--3. El problema admite múltiples soluciones en base a los supuestos que se hagan, todas 
+--serían válidas siempre que sean coherentes con las claves elegidas. 
