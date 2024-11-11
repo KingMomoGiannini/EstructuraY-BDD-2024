@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS LAPIZZA
+
 CREATE Table pizza_types(
     pizza_type_id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR (20) NOT NULL,
@@ -61,15 +63,6 @@ CREATE TABLE order_details(
 -- Resolución:
 
 -- pto1
-SELECT  o.order_id,nombre, quantity, s.street_Adress, s.street_Number, s.City
-FROM orders o
-JOIN order_details od ON o.order_id = od.order_id
-JOIN pizzas pz ON od.pizza_id = pz.pizza_id
-JOIN pizza_types p ON pz.pizza_type_id = p.pizza_type_id
-JOIN customers c ON o.customer_id = c.customer_id
-JOIN subsidiaries s ON o.subsidiary_id = s.subsidiary_id
-WHERE c.first_name = 'John' AND c.last_name = 'Doe';
---hecho por mí.
 SELECT od.order_detail_id, c.first_name, c.last_name, pt.nombre, od.quantity, c.street_Address
 FROM order_details od
 JOIN pizzas p ON p.pizza_id = od.pizza_id

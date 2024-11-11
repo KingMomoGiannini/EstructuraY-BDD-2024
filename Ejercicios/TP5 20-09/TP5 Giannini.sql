@@ -1,3 +1,4 @@
+-- Active: 1725649728474@@127.0.0.1@3306@jardineria
 --Teniendo en cuenta el diagrama relacional correspondiente a una base de 
 --datos de una jardinería , realizar las siguientes consultas en un gestor de base 
 --de datos .
@@ -1340,8 +1341,8 @@ LEFT JOIN pago ON cliente.codigo_cliente = pago.codigo_cliente
 WHERE pago.codigo_cliente IS NULL;
 
 -- pto12
-SELECT empleado.nombre, empleado.apellido1, empleado.apellido2, jefe.nombre, jefe.apellido1, jefe.apellido2
+SELECT empleado.nombre, empleado.apellido1, empleado.apellido2, cliente.nombre_cliente, jefe.nombre, jefe.apellido1, jefe.apellido2
 FROM empleado
 LEFT JOIN cliente ON empleado.codigo_empleado = cliente.codigo_empleado_rep_ventas
-JOIN empleado jefe ON empleado.codigo_jefe = jefe.codigo_empleado
+JOIN empleado as jefe ON empleado.codigo_jefe = jefe.codigo_empleado
 WHERE cliente.codigo_empleado_rep_ventas IS NULL;
