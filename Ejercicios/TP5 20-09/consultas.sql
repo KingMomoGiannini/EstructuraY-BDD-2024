@@ -304,3 +304,113 @@ JOIN pedido ON cliente.codigo_cliente = pedido.codigo_cliente
 JOIN detalle_pedido ON pedido.codigo_pedido = detalle_pedido.codigo_pedido
 JOIN producto ON detalle_pedido.codigo_producto = producto.codigo_producto
 JOIN gama_producto ON producto.gama = gama_producto.gama;
+-- Consultas multitabla (Composición externa)
+-- 1. Devuelve un listado que muestre solamente los clientes que no han 
+-- realizado ningún pago.
+-- 2. Devuelve un listado que muestre solamente los clientes que no han 
+-- realizado ningún pedido.
+-- 3. Devuelve un listado que muestre los clientes que no han realizado 
+-- ningún pago y los que no han realizado ningún pedido.
+-- 4. Devuelve un listado que muestre solamente los empleados que no tienen 
+-- una oficina asociada.
+-- 5. Devuelve un listado que muestre solamente los empleados que no tienen 
+-- un cliente asociado.
+-- 6. Devuelve un listado que muestre solamente los empleados que no tienen 
+-- un cliente asociado junto con los datos de la oficina donde trabajan.
+-- 7. Devuelve un listado que muestre los empleados que no tienen una 
+-- oficina asociada y los que no tienen un cliente asociado.
+-- 8. Devuelve un listado de los productos que nunca han aparecido en un 
+-- pedido.
+-- 9. Devuelve un listado de los productos que nunca han aparecido en un 
+-- pedido. El resultado debe mostrar el nombre, la descripción y la imagen 
+-- del producto.
+-- 10. Devuelve las oficinas donde no trabajan ninguno de los empleados que 
+-- hayan sido los representantes de ventas de algún cliente que haya 
+-- realizado la compra de algún producto de la gama Frutales.
+-- 11. Devuelve un listado con los clientes que han realizado algún pedido pero 
+-- no han realizado ningún pago.
+-- 12. Devuelve un listado con los datos de los empleados que no tienen 
+-- clientes asociados y el nombre de su jefe asociado.
+
+-- pto1
+SELECT nombre_cliente, pago.codigo_cliente
+FROM cliente
+LEFT JOIN pago ON cliente.codigo_cliente = pago.codigo_cliente
+WHERE pago.codigo_cliente IS NULL;
+
+-- pto2
+SELECT nombre_cliente, pedido.codigo_cliente
+FROM cliente
+LEFT JOIN pedido ON cliente.codigo_cliente = pedido.codigo_cliente
+WHERE pedido.codigo_cliente IS NULL;
+
+-- pto3
+SELECT nombre_cliente, pago.codigo_cliente, pedido.codigo_cliente
+FROM cliente
+LEFT JOIN pago ON cliente.codigo_cliente = pago.codigo_cliente
+LEFT JOIN pedido ON cliente.codigo_cliente = pedido.codigo_cliente
+WHERE pago.codigo_cliente IS NULL OR pedido.codigo_cliente IS NULL;
+
+-- pto4
+SELECT nombre, apellido1, apellido2
+FROM empleado
+LEFT JOIN oficina ON empleado.codigo_oficina = oficina.codigo_oficina
+WHERE oficina.codigo_oficina IS NULL;
+
+-- pto5
+SELECT nombre, apellido1, apellido2, cliente.codigo_empleado_rep_ventas
+FROM empleado
+LEFT JOIN cliente ON empleado.codigo_empleado = cliente.codigo_empleado_rep_ventas
+WHERE cliente.codigo_empleado_rep_ventas IS NULL;
+
+-- pto6
+SELECT nombre, apellido1, apellido2, oficina.ciudad, cliente.codigo_empleado_rep_ventas
+FROM empleado
+LEFT JOIN oficina ON empleado.codigo_oficina = oficina.codigo_oficina
+LEFT JOIN cliente ON empleado.codigo_empleado = cliente.codigo_empleado_rep_ventas
+WHERE cliente.codigo_empleado_rep_ventas IS NULL;
+
+-- pto7
+SELECT nombre, apellido1, apellido2, oficina.codigo_oficina, cliente.codigo_empleado_rep_ventas
+FROM empleado
+LEFT JOIN oficina ON empleado.codigo_oficina = oficina.codigo_oficina
+LEFT JOIN cliente ON empleado.codigo_empleado = cliente.codigo_empleado_rep_ventas
+WHERE oficina.codigo_oficina IS NULL OR cliente.codigo_empleado_rep_ventas IS NULL;
+
+-- pto8
+SELECT producto.nombre, detalle_pedido.codigo_producto, pedido.codigo_pedido
+FROM producto
+LEFT JOIN detalle_pedido ON producto.codigo_producto = detalle_pedido.codigo_producto
+LEFT JOIN pedido ON detalle_pedido.codigo_pedido = pedido.codigo_pedido
+WHERE detalle_pedido.codigo_producto IS NULL;
+
+-- pto9
+SELECT producto.nombre, producto.descripcion, detalle_pedido.codigo_producto, pedido.codigo_pedido
+FROM producto
+LEFT JOIN detalle_pedido ON producto.codigo_producto = detalle_pedido.codigo_producto
+LEFT JOIN pedido ON detalle_pedido.codigo_pedido = pedido.codigo_pedido
+WHERE detalle_pedido.codigo_producto IS NULL;
+
+-- pto10
+SELECT oficina.codigo_oficina, oficina.ciudad, empleado.codigo_empleado, cliente.codigo_cliente, producto.gama
+FROM oficina
+LEFT JOIN empleado ON oficina.codigo_oficina = empleado.codigo_oficina
+LEFT JOIN cliente ON empleado.codigo_empleado = cliente.codigo_empleado_rep_ventas
+LEFT JOIN pedido ON cliente.codigo_cliente = pedido.codigo_cliente
+LEFT JOIN detalle_pedido ON pedido.codigo_pedido = detalle_pedido.codigo_pedido
+LEFT JOIN producto ON detalle_pedido.codigo_producto = producto.codigo_producto
+WHERE producto.gama = 'Frutales';
+
+-- pto11
+SELECT nombre_cliente, pedido.codigo_cliente, pago.codigo_cliente
+FROM cliente
+JOIN pedido ON cliente.codigo_cliente = pedido.codigo_cliente
+LEFT JOIN pago ON cliente.codigo_cliente = pago.codigo_cliente
+WHERE pago.codigo_cliente IS NULL;
+
+-- pto12
+SELECT empleado.nombre, empleado.apellido1, empleado.apellido2, jefe.nombre, jefe.apellido1, jefe.apellido2
+FROM empleado
+LEFT JOIN cliente ON empleado.codigo_empleado = cliente.codigo_empleado_rep_ventas
+JOIN empleado jefe ON empleado.codigo_jefe = jefe.codigo_empleado
+WHERE cliente.codigo_empleado_rep_ventas IS NULL;
